@@ -1,10 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:mauzoApp/colors/app_theme.dart';
+import 'package:mauzoApp/core/utils/services/storage_service.dart';
 import 'core/app_export.dart';
-
-void main() {
+final ThemeData theme = ThemeData();
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
+  Get.put(StorageService());
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then((value) {
@@ -14,14 +19,14 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       translations: AppLocalization(),
-      
-      locale: Get.deviceLocale, //for setting localization strings
+      theme:  AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      locale: Get.deviceLocale, 
       fallbackLocale: Locale('en', 'US'),
       title: 'mauzoApp',
       initialBinding: InitialBindings(),
