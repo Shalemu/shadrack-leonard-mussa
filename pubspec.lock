@@ -312,6 +312,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.6.6"
+  get_storage:
+    dependency: "direct main"
+    description:
+      name: get_storage
+      sha256: "39db1fffe779d0c22b3a744376e86febe4ade43bf65e06eab5af707dc84185a2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.1"
   google_maps:
     dependency: transitive
     description:
@@ -652,10 +660,10 @@ packages:
     dependency: "direct main"
     description:
       name: pin_code_fields
-      sha256: c8652519d14688f3fe2a8288d86910a46aa0b9046d728f292d3bf6067c31b4c7
+      sha256: "4c0db7fbc889e622e7c71ea54b9ee624bb70c7365b532abea0271b17ea75b729"
       url: "https://pub.dev"
     source: hosted
-    version: "7.4.0"
+    version: "8.0.1"
   pin_input_text_field:
     dependency: transitive
     description:
