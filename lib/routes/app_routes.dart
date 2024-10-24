@@ -1,3 +1,4 @@
+import 'package:mauzoApp/presentation/home_vtwo_page/receipt_page.dart';
 import 'package:mauzoApp/presentation/login_empty_state_screen/LoginPage.dart';
 import 'package:mauzoApp/presentation/onboarding_001_screen/onboarding_001_screen.dart';
 import 'package:mauzoApp/presentation/onboarding_001_screen/binding/onboarding_001_binding.dart';
@@ -75,8 +76,9 @@ import 'package:get/get.dart';
 class AppRoutes {
   // Route names
   static const String onboarding001Screen = '/onboarding_001_screen';
+ static const String receiptPage = '/receipt';
   static const String loginPage = '/loginPage';
-  static const String homeVtwoPageRoute = '/home_vtwo_page'; 
+  static const String homeVtwoPageRoute = '/home_vtwo_page';
   static const String splashScreen = '/splash_screen';
   static const String loginEmptyStateScreen = '/login_empty_state_screen';
   static const String signUpEmptyStateScreen = '/sign_up_empty_state_screen';
@@ -127,6 +129,7 @@ class AppRoutes {
   static const String initialRoute = '/initialRoute';
 
   static List<GetPage> pages = [
+     GetPage(name: receiptPage, page: () => ReceiptPage()),
     GetPage(
       name: onboarding001Screen,
       page: () =>
@@ -135,8 +138,13 @@ class AppRoutes {
     ),
     GetPage(
       name: homeVtwoPage,
-      page: () => HomeVtwoPage(itemName: '_usernameController.text', token: 'token', deviceKey: 'deviceKey',), // Correct widget reference and route string
+      page: () => HomeVtwoPage(
+        itemName: '_usernameController.text',
+        token: 'token',
+        deviceKey: 'deviceKey',
+      ), // Correct widget reference and route string
     ),
+    
     GetPage(
       name: loginEmptyStateScreen,
       page: () => LoginEmptyStateScreen(),

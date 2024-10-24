@@ -41,6 +41,7 @@ class CustomBottomBar extends StatelessWidget {
   ];
 
   Function(BottomBarEnum)? onChanged;
+  
 
   @override
   Widget build(BuildContext context) {

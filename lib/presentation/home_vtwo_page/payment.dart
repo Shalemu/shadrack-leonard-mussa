@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart'; // Import for date formatting
 import 'package:mauzoApp/core/app_export.dart';
 import 'package:mauzoApp/presentation/home_vtwo_page/controller/home_vtwo_controller.dart';
+import 'package:mauzoApp/presentation/home_vtwo_page/receipt_page.dart';
 import 'package:mauzoApp/widgets/app_bar/appbar_image.dart';
 import 'package:mauzoApp/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mauzoApp/widgets/app_bar/custom_app_bar.dart';
@@ -315,6 +316,51 @@ class _PaymentPageState extends State<PaymentPage> {
                             ))),
                       ),
 
+                      SizedBox(
+                          height:
+                              8), // Add spacing between rows for better layout
+
+                      // Bill Row
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 24, top: 12, bottom: 12),
+                            child: Text(
+                              "Subtotal:",
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey[900],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: getPadding(top: 16, right: 16, bottom: 16),
+                            child: Obx(() {
+                              // Calculate total bill by summing price * quantity of each item
+                              double totalBill = 0.0;
+                              controller.cartItems
+                                  .forEach((itemName, quantity) {
+                                double itemPrice =
+                                    controller.getItemPrice(itemName);
+                                totalBill += itemPrice * quantity;
+                              });
+                              return Text(
+                                '${totalBill.toStringAsFixed(2)}',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color:
+                                      Colors.black, // Bolder text for emphasis
+                                ),
+                              );
+                            }),
+                          ),
+                        ],
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -350,9 +396,8 @@ class _PaymentPageState extends State<PaymentPage> {
                         ],
                       ),
 
-                      SizedBox(
-                          height:
-                              8), // Add spacing between rows for better layout
+                      SizedBox(height: 8),
+                      // Add spacing between rows for better layout
 
                       // Bill Row
                       Row(
@@ -515,22 +560,28 @@ class _PaymentPageState extends State<PaymentPage> {
             TextButton(
               child: const Text(
                 'Yes',
-                style: TextStyle(color: Colors.black), // Black color text
+                style: TextStyle(color: Colors.black),
               ),
               onPressed: () {
-                // Generate receipt and close the dialog
-                controller.generateReceipt();
-                Navigator.of(context).pop(); // Close the dialog
+                final controller = Get.find<HomeVtwoController>();
+
+                controller.generateReceipt(); // Call the method
+                Get.back(); // Close the dialog
+
+                print("Generating receipt");
+
+                try {
+                  Get.offNamed(AppRoutes.receiptPage,
+                      arguments: {'controller': controller});
+                } catch (e) {
+                  print("Navigation error: $e");
+                }
               },
             ),
           ],
         );
       },
     );
-  }
-
-  void onTapClose() {
-    Get.back();
   }
 
   void _showOptions(BuildContext context) {

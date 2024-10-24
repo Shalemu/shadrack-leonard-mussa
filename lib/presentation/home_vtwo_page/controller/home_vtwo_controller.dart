@@ -101,6 +101,14 @@ class HomeVtwoController extends GetxController {
     );
   }
 
+  void updatePrice(String itemName, double newPrice) {
+    int index = items.indexWhere((item) => item.name == itemName);
+    if (index != -1) {
+      items[index].salePrice = newPrice; // Directly modify the salePrice
+      items.refresh(); // Notify listeners about the change
+    }
+  }
+
   void updatePendingAmount() {
     double paid = paidAmount.value;
 
@@ -131,48 +139,14 @@ class HomeVtwoController extends GetxController {
   final DatabaseHelper dbHelper = DatabaseHelper();
 
   void generateReceipt() async {
-    String receipt = '';
+    // Ensure these variables are defined and initialized elsewhere in your code
     String customerName = selectedCustomer.value;
     String paymentType = selectedPaymentMethod.value;
     String orderDate = DateTime.now().toString(); // Example date
-    String shortId =
-        '#TS-${DateTime.now().millisecondsSinceEpoch}'; // Receipt ID
-
-    // Insert items into the local database
-    for (var entry in cartItems.entries) {
-      String itemName = entry.key;
-// Quantity of that item
-
-      // Check if the items list is not empty before proceeding
-      if (items.isNotEmpty) {
-        // Find the item in your items list based on the name or other criteria
-        items.firstWhere(
-          (item) => item.name == itemName,
-          // orElse: () => null, // Return null if not found
-        );
-
-        // await DatabaseHelper.addCart(
-        //   cart: Cart(
-        //     id: item.id, // Assuming item.id exists
-        //     transactionId: item.transactionId, // Ensure this property exists
-        //     itemId: item.itemId,
-        //     itemName: item.itemName,
-        //     salePrice: item.salePrice,
-        //     quantity: quantity, // Use the quantity from the cart
-        //     total: item.salePrice * quantity, // Calculate total for this item
-        //     discountValue: item.discountValue,
-        //     price: item.price,
-        //     img: item.img,
-        //   ),
-        // );
-      } else {
-        print('The items list is empty.');
-      }
-    }
-
-    // Optionally, you can handle receipt generation or further processing here
+    String shortId = '#TS-${DateTime.now().millisecondsSinceEpoch}';
 
     // Generate the receipt content based on payment type
+    String receipt = ''; // Initialize receipt string
     switch (paymentType) {
       case 'Credit':
         receipt = '''
@@ -221,21 +195,19 @@ Paid Amount: $paidAmount
     await DatabaseHelper.clearCart();
   }
 
-  // Display the receipt in a dialog with QR code
-
+// Display the receipt in a dialog with QR code
   void _showReceiptDialog(
-      String receiptDetails, String shortId, String logoBase64) async {
+      String receiptDetails, String shortId, String logoBase64) {
     Get.dialog(
       AlertDialog(
         title: Center(
-            child:
-                Text('Receipt', style: TextStyle(fontWeight: FontWeight.bold))),
+          child: Text('Receipt', style: TextStyle(fontWeight: FontWeight.bold)),
+        ),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Display the username with high font size
               Text(selectedCustomer.value,
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -243,17 +215,13 @@ Paid Amount: $paidAmount
                     fontWeight: FontWeight.bold,
                   )),
               SizedBox(height: 5),
-              // Display the receipt number
               Text(shortId, style: TextStyle(fontSize: 16)),
               SizedBox(height: 10),
-              // Dotted Divider
               dottedDivider(),
               SizedBox(height: 10),
-              // Receipt details in two columns
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Split receiptDetails into lines and format them
                   for (String line in receiptDetails.split('\n'))
                     if (line.trim().isNotEmpty)
                       Row(
@@ -266,21 +234,17 @@ Paid Amount: $paidAmount
                 ],
               ),
               SizedBox(height: 10),
-              // Dotted Divider
               dottedDivider(),
               SizedBox(height: 10),
-              // Placeholder for logo
               Container(
-                height: 50, // Adjust height as needed for logo
-                color: Colors.grey[200], // Optional: Placeholder color
+                height: 50,
+                color: Colors.grey[200],
                 child: Center(
                     child: Text('mauzo360')), // Placeholder text for logo
               ),
               SizedBox(height: 10),
-              // Dotted Divider
               dottedDivider(),
               SizedBox(height: 10),
-              // Subtotal and Discount
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -294,16 +258,13 @@ Paid Amount: $paidAmount
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('Discount:'),
-
                   Text(
                       '${(discount.value).toString()}'), // Display discount value
                 ],
               ),
               SizedBox(height: 10),
-              // Dotted Divider
               dottedDivider(),
               SizedBox(height: 10),
-              // Total
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -313,7 +274,6 @@ Paid Amount: $paidAmount
                 ],
               ),
               SizedBox(height: 10),
-              // QR Code centered at the bottom
               Center(
                 child: Container(
                   height: 100,
@@ -337,25 +297,24 @@ Paid Amount: $paidAmount
         actions: [
           TextButton(
             onPressed: () {
-              printReceipt(receiptDetails);
+              printReceipt(receiptDetails); // Implement print functionality
             },
-            child: Text(
-              'Print',
-              style: TextStyle(color: Colors.black),
-            ),
+            child: Text('Print', style: TextStyle(color: Colors.black)),
           ),
           TextButton(
             onPressed: () {
               Get.back(); // Close the dialog
             },
-            child: Text(
-              'Cancel',
-              style: TextStyle(color: Colors.black),
-            ),
+            child: Text('Cancel', style: TextStyle(color: Colors.black)),
           ),
         ],
       ),
     );
+  }
+
+// Implement your print functionality here
+  void printReceipt(String receiptDetails) {
+    // Print functionality implementation goes here
   }
 
   @override
@@ -401,7 +360,7 @@ Paid Amount: $paidAmount
   }
 
   void addToCart(
-      String name, String itemImage, double price, int minStock) async {
+      String name, String itemImage, double originalPrice, int minStock) async {
     print("Inside addToCart: $name | MinStock: $minStock");
     int totalAdded = cartItems[name] ?? 0; // Quantity already in cart
     int newQuantity = quantities[name] ?? 0; // Quantity user wants to add
@@ -421,30 +380,32 @@ Paid Amount: $paidAmount
 
     // Add to cart if quantity is valid
     if (newQuantity > 0) {
+      // Update cartItems with the new quantity
       cartItems.update(name, (value) => value + newQuantity,
           ifAbsent: () => newQuantity);
       itemImages[name] = itemImage;
-      itemPrices[name] = price;
+      itemPrices[name] = originalPrice; // Ensure to keep the original price
       quantities[name] = 0; // Reset quantity input after adding
       this.minStock[name] = minStock; // Store minStock value
 
-      // Save to local database
+      // Create a new Cart object with the original price
       final cartItem = Cart(
         transactionId: 1, // Use a transactionId or generate dynamically
         itemId: itemPrices.keys.toList().indexOf(name) +
             1, // Item ID (or map to DB ID)
         itemName: name,
-        salePrice: price,
+        salePrice: originalPrice, // Use the original price here
         quantity: newQuantity,
-        total: price * newQuantity,
+        total: originalPrice *
+            newQuantity, // Calculate total based on original price
         discountValue: 0.0, // Adjust if discounts are applied
-        price: price,
+        price: originalPrice, // Store original price
         img: itemImage,
         createdAt: DateTime.now().toString(),
       );
 
+      // Save to local database
       int result = await DatabaseHelper.addCart(cart: cartItem);
-      // Save to DB
 
       if (result > 0) {
         print("Added to local database: $name | Quantity: $newQuantity");
@@ -587,7 +548,7 @@ Paid Amount: $paidAmount
     print('Cart items cleared from memory successfully.');
   }
 
-  void printReceipt(String receiptDetails) {}
+  // void printReceipt(String receiptDetails) {}
 
   void updateQuantity(String itemN, int quantity) {
     if (quantity < 0) {

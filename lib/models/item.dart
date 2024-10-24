@@ -7,7 +7,7 @@ class Item {
   final String img; // Default to 'default.jpg' if needed
   final int stock; // Renamed from 'qty_actual' for clarity
   final double purchasePrice;
-  final double salePrice;
+  double salePrice;
   final String? saleRoboPrice; // Made nullable
   final String? saleNusuPrice; // Made nullable
   final String? saleNusuroboPrice; // Made nullable
@@ -50,6 +50,7 @@ class Item {
     required this.originStock,
     this.syncStatus = 'unsynced', // Default value for syncStatus
   });
+
   factory Item.fromJson(Map<String, dynamic> json) {
     return Item(
       id: int.parse(
