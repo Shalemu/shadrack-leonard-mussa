@@ -5,7 +5,6 @@ import 'package:mauzoApp/core/utils/size_utils.dart';
 import 'package:mauzoApp/presentation/home_vtwo_page/controller/home_vtwo_controller.dart';
 import 'package:mauzoApp/services/database_helper.dart';
 import 'package:mauzoApp/widgets/app_bar/custom_app_bar.dart';
-import 'package:path/path.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class ReceiptPage extends StatelessWidget {
@@ -92,14 +91,12 @@ class ReceiptPage extends StatelessWidget {
     String customerName = controller.selectedCustomer.value;
     String paymentType = controller.selectedPaymentMethod.value;
     String orderDate = DateTime.now().toString(); // Example date
-    String shortId = '#TS-${DateTime.now().millisecondsSinceEpoch}';
 
     // Calculate values before generating the receipt content
     double totalBill =
         controller.billAmount.value; // Correctly accessing the value
-    double discount =
-        controller.discount.value; // Assuming discount is tracked in controller
-    double actualPrice = totalBill - discount; // Calculate the actual price
+// Assuming discount is tracked in controller
+// Calculate the actual price
 
     // Generate the receipt content based on payment type
     String receipt = ''; // Initialize receipt string
@@ -169,9 +166,8 @@ Paid Amount: ${controller.paidAmount.value}
     // This method is now used to display the receipt in the body
     String shortId =
         '#TS-${DateTime.now().millisecondsSinceEpoch}'; // Re-generate the short ID for the display
-    double totalBill = controller.billAmount.value; // Access totalBill directly
-    double discount = controller.discount.value; // Access discount directly
-    double actualPrice = totalBill - discount;
+// Access totalBill directly
+// Access discount directly
     // Calculate actual price
 
     return SingleChildScrollView(

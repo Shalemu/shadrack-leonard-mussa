@@ -5035,6 +5035,18 @@ CREATE TABLE paper_sizes (
     return result.isNotEmpty; // Return true if the item exists
   }
 
+  static Future<int> updateItemStock(String itemName, int newStock) async {
+    final db = await _getDB(); // Get the database instance
+
+    // Update the min_stock field in the items table
+    return await db.update(
+      'items', // Table name
+      {'min_stock': newStock}, // New stock value
+      where: 'name = ?', // Filter by item name
+      whereArgs: [itemName], // Provide item name as argument
+    );
+  }
+
   //CRUDE FOR USER
   // Insert a new user with sync_status
   static Future<int> addUser({

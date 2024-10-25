@@ -32,6 +32,8 @@ class HomeVtwoController extends GetxController {
 
   var homeVtwoModelObj = Rx<HomeVtwoModel>(HomeVtwoModel(''));
   var selectedCategory = 0.obs;
+    final quantityController = TextEditingController();
+  var currentQuantity = 1.obs; // Observable quantity
 
   RxMap<String, int> minStock = RxMap(); // Available stock
   RxMap<String, int> cartItems = RxMap(); // Items in the cart
@@ -447,10 +449,10 @@ Paid Amount: $paidAmount
     return itemImages[name] ?? '';
   }
 
-  void currentQuantity(String itemName, int quantity) {
-    quantities[itemName] = quantity;
-    update(); // To notify listeners of the change
-  }
+  // void currentQuantity(String itemName, int quantity) {
+  //   quantities[itemName] = quantity;
+  //   update(); // To notify listeners of the change
+  // }
 
   // Get quantity of an item
   int getQuantity(String name) {
@@ -483,6 +485,58 @@ Paid Amount: $paidAmount
   // Navigate to the CartPage
   void goToCartPage() {
     Get.to(() => CartPage());
+  }
+
+  void completePaymentWithoutReceipt() async {
+    print('--- Starting Stock Update After Payment ---');
+
+    // Reduce stock for each item in the cart and update in the database
+    for (var entry in cartItems.entries) {
+      String itemName = entry.key;
+      int quantitySold = entry.value;
+
+      if (minStock.containsKey(itemName)) {
+        int initialStock = minStock[itemName]!;
+        int remainingStock = initialStock - quantitySold;
+
+        if (remainingStock < 0) {
+          print('Error: Not enough stock for $itemName. Cannot proceed.');
+          continue; // Skip updating if stock would go negative
+        }
+
+        // Update in-memory stock
+        minStock[itemName] = remainingStock;
+
+        // Log the stock reduction
+        print(
+            'Item: $itemName | Initial Stock: $initialStock | Quantity Sold: $quantitySold | Remaining Stock: $remainingStock');
+
+        // Update the stock in the 'items' table in the database
+        try {
+          await DatabaseHelper.updateItemStock(itemName, remainingStock);
+          print('Database updated successfully for $itemName.');
+        } catch (e) {
+          print('Error updating database for $itemName: $e');
+        }
+      } else {
+        print('Warning: Item $itemName not found in stock.');
+      }
+    }
+
+    try {
+      // Clear the cart from the local database
+      await DatabaseHelper.clearCart();
+      print('Cart items cleared from the local database successfully.');
+    } catch (e) {
+      print('Error clearing cart items from local database: $e');
+    }
+
+    // Clear in-memory data and update UI
+    cartItems.clear();
+    itemImages.clear();
+    itemPrices.clear();
+    update();
+    print('Payment completed. Cart cleared and stock updated.');
   }
 
   // Increment the quantity of an item in the cart

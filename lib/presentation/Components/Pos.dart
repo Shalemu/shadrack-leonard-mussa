@@ -2,14 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:mauzoApp/presentation/home_vtwo_page/home_vtwo_page.dart';
 import 'package:mauzoApp/presentation/home_vtwo_page/models/home_vtwo_model.dart';
 import 'package:mauzoApp/presentation/home_vtwo_page/scnner.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:mauzoApp/core/app_export.dart';
 import 'package:mauzoApp/models/item.dart';
-import 'package:mauzoApp/presentation/Components/customer.dart';
-import 'package:mauzoApp/presentation/Components/expenses.dart';
-import 'package:mauzoApp/presentation/Components/supplier.dart';
 import 'package:mauzoApp/presentation/home_vtwo_page/cart.dart';
 import 'package:mauzoApp/presentation/home_vtwo_page/controller/home_vtwo_controller.dart';
 import 'package:mauzoApp/presentation/login_empty_state_screen/LoginPage.dart';
@@ -24,12 +23,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dart:async';
 
-class HomeVtwoPage extends StatefulWidget {
+class HomeVtwoPage1 extends StatefulWidget {
   final String itemName;
   final String token;
   final String deviceKey;
 
-  HomeVtwoPage({
+  HomeVtwoPage1({
     Key? key,
     required this.itemName,
     required this.token,
@@ -40,7 +39,7 @@ class HomeVtwoPage extends StatefulWidget {
   _HomeVtwoPageState createState() => _HomeVtwoPageState();
 }
 
-class _HomeVtwoPageState extends State<HomeVtwoPage> {
+class _HomeVtwoPageState extends State<HomeVtwoPage1> {
   final TextEditingController _searchController = TextEditingController();
   final RxList<Item> _allItems = <Item>[].obs; // Store all items
   final RxList<Item> _filteredItems = <Item>[].obs; // Store filtered items
@@ -99,13 +98,13 @@ class _HomeVtwoPageState extends State<HomeVtwoPage> {
             appBar: CustomAppBar(
               height: getVerticalSize(56.00),
               leadingWidth: 56,
-              // leading: AppbarImage(
-              //   height: getSize(32.00),
-              //   width: getSize(32.00),
-              //   svgPath: ImageConstant.imgArrowleft,
-              //   margin: EdgeInsets.only(left: 24, top: 12, bottom: 12),
-              //   // onTap: onTapArrowleft14,
-              // ),
+              leading: AppbarImage(
+                height: getSize(32.00),
+                width: getSize(32.00),
+                svgPath: ImageConstant.imgArrowleft,
+                margin: EdgeInsets.only(left: 24, top: 12, bottom: 12),
+                onTap: onTapArrowleft14,
+              ),
               title: Padding(
                 padding: getPadding(left: 24),
                 child: Column(
@@ -216,15 +215,15 @@ class _HomeVtwoPageState extends State<HomeVtwoPage> {
                       mainAxisSize: MainAxisSize
                           .min, // Make sure the column takes up minimal space
                       children: [
-                        Container(
-                          width: 24,
-                          height: 24,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                                Colors.orange[400]!),
-                            strokeWidth: 2.0,
-                          ),
-                        ),
+                        // Container(
+                        //   width: 24,
+                        //   height: 24,
+                        //   child: CircularProgressIndicator(
+                        //     valueColor: AlwaysStoppedAnimation<Color>(
+                        //         Colors.orange[400]!),
+                        //     strokeWidth: 2.0,
+                        //   ),
+                        // ),
                         SizedBox(
                             height:
                                 8), // Add some spacing between the indicator and text
@@ -281,26 +280,26 @@ class _HomeVtwoPageState extends State<HomeVtwoPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
-                    Padding(
-                      padding: EdgeInsets.only(top: 26, left: 24, right: 24),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "lbl_available_stock".tr,
-                            style: AppStyle.txtNotoSansJPBold16,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 1, bottom: 2),
-                            child: Text(
-                              "lbl_see_all".tr,
-                              style: AppStyle.txtNotoSansJPMedium14Bluegray301,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    // SizedBox(height: 10),
+                    // Padding(
+                    //   padding: EdgeInsets.only(top: 26, left: 24, right: 24),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     // children: [
+                    //     //   Text(
+                    //     //     "lbl_available_stock".tr,
+                    //     //     style: AppStyle.txtNotoSansJPBold16,
+                    //     //   ),
+                    //     //   Padding(
+                    //     //     padding: EdgeInsets.only(top: 1, bottom: 2),
+                    //     //     child: Text(
+                    //     //       "lbl_see_all".tr,
+                    //     //       style: AppStyle.txtNotoSansJPMedium14Bluegray301,
+                    //     //     ),
+                    //     //   ),
+                    //     // ],
+                    //   ),
+                    // ),
                     SizedBox(height: 6),
 
                     Expanded(
@@ -309,8 +308,7 @@ class _HomeVtwoPageState extends State<HomeVtwoPage> {
                           return Center(child: Text('No items found'));
                         }
 
-                        return FadeInLeft(
-                          // Add the FadeInLeft animation here
+                       return FadeInLeft(
                           child: ListView.separated(
                             padding: EdgeInsets.symmetric(horizontal: 24),
                             shrinkWrap: true,
@@ -319,10 +317,15 @@ class _HomeVtwoPageState extends State<HomeVtwoPage> {
                             itemCount: _filteredItems.length,
                             itemBuilder: (context, index) {
                               var item = _filteredItems[index];
+                              TextEditingController priceController =
+                                  TextEditingController(
+                                      text: item.salePrice.toString());
+                              bool isEditingPrice =
+                                  false; // Track if the price is being edited
 
                               return GestureDetector(
                                 onTap: () {
-                                  // Handle tap event
+                                  // Handle tap event if necessary
                                 },
                                 child: Container(
                                   margin: EdgeInsets.symmetric(vertical: 5),
@@ -344,8 +347,71 @@ class _HomeVtwoPageState extends State<HomeVtwoPage> {
                                     leading: Icon(Icons.image,
                                         size: 40, color: Colors.grey),
                                     title: Text(item.name),
-                                    subtitle: Text(
-                                      '${item.minStock} ${item.unit}\nPrice: ${item.salePrice}',
+                                    subtitle: StatefulBuilder(
+                                      builder: (BuildContext context,
+                                          StateSetter setState) {
+                                        return Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            // Display the price as a TextField if in editing mode
+                                            isEditingPrice
+                                                ? Container(
+                                                    width:
+                                                        100, // Adjust the width as needed
+                                                    child: TextField(
+                                                      controller:
+                                                          priceController,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        border:
+                                                            OutlineInputBorder(),
+                                                        labelText: 'Price',
+                                                        contentPadding:
+                                                            EdgeInsets.symmetric(
+                                                                vertical: 3,
+                                                                horizontal:
+                                                                    3), // Adjust padding
+                                                      ),
+                                                      onSubmitted: (newValue) {
+                                                        // Update the price in the controller and switch back to display mode
+                                                        if (newValue
+                                                            .isNotEmpty) {
+                                                          item.salePrice =
+                                                              double.tryParse(
+                                                                      newValue) ??
+                                                                  item.salePrice;
+                                                          controller.updatePrice(
+                                                              item.name,
+                                                              item.salePrice);
+                                                        }
+                                                        setState(() {
+                                                          isEditingPrice =
+                                                              false; // Switch back to display mode
+                                                        });
+                                                      },
+                                                    ),
+                                                  )
+                                                : GestureDetector(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        isEditingPrice =
+                                                            true; // Switch to editing mode
+                                                      });
+                                                    },
+                                                    child: Text(
+                                                      'Price: ${item.salePrice}',
+                                                      style: TextStyle(
+                                                          fontSize: 16),
+                                                    ),
+                                                  ),
+                                            Text(
+                                                '${item.minStock} ${item.unit}'),
+                                          ],
+                                        );
+                                      },
                                     ),
                                     trailing: Obx(() {
                                       int currentQuantity =
@@ -370,20 +436,35 @@ class _HomeVtwoPageState extends State<HomeVtwoPage> {
                                                   onPressed: () {
                                                     controller
                                                         .decrementQuantity(
-                                                      item.name,
-                                                    );
+                                                            item.name);
                                                   },
                                                 ),
                                               ),
-                                              SizedBox(width: 12),
-                                              Text(
-                                                currentQuantity.toString(),
-                                                style: TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                              SizedBox(width: 16),
+                                              // Updated TextField for quantity input
+                                              Container(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 14, vertical: 4),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey[200],
+                                                  borderRadius:
+                                                      BorderRadius.circular(6),
+                                                ),
+                                                
+                                                child: Center(
+                                                  child: Text(
+                                                    currentQuantity.toString(),
+                                                    style: GoogleFonts.poppins(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Colors
+                                                          .black, // Bolder text for emphasis
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
-                                              SizedBox(width: 12),
+                                              SizedBox(width: 16),
                                               CircleAvatar(
                                                 radius: 14,
                                                 backgroundColor:
@@ -403,12 +484,11 @@ class _HomeVtwoPageState extends State<HomeVtwoPage> {
                                             ],
                                           ),
                                           SizedBox(height: 2.5),
-                                          // Conditionally show the "Add to cart" button
                                           if (currentQuantity > 0)
                                             CustomButton(
                                               width: 74,
                                               text: "Add to Cart",
-                                              margin: EdgeInsets.only(left: 5),
+                                              margin: EdgeInsets.only(left: 25),
                                               variant:
                                                   ButtonVariant.FillGray102,
                                               shape: ButtonShape.RoundedBorder8,
@@ -420,11 +500,10 @@ class _HomeVtwoPageState extends State<HomeVtwoPage> {
                                                 print(
                                                     "Adding ${item.name} to cart | MinStock: ${item.minStock}");
                                                 controller.addToCart(
-                                                  item.name,
-                                                  item.img,
-                                                  item.salePrice,
-                                                  item.minStock, // Pass min stock to validate
-                                                );
+                                                    item.name,
+                                                    item.img,
+                                                    item.salePrice,
+                                                    item.minStock);
                                               },
                                             ),
                                         ],

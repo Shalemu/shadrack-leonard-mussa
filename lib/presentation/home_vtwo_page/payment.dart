@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart'; // Import for date formatting
 import 'package:mauzoApp/core/app_export.dart';
 import 'package:mauzoApp/presentation/home_vtwo_page/controller/home_vtwo_controller.dart';
-import 'package:mauzoApp/presentation/home_vtwo_page/receipt_page.dart';
-import 'package:mauzoApp/widgets/app_bar/appbar_image.dart';
-import 'package:mauzoApp/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mauzoApp/widgets/app_bar/custom_app_bar.dart';
 import 'package:mauzoApp/widgets/custom_button.dart';
-import 'package:mauzoApp/widgets/spacing.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PaymentPage extends StatefulWidget {
@@ -419,20 +415,23 @@ class _PaymentPageState extends State<PaymentPage> {
                           Padding(
                             padding: const EdgeInsets.only(
                                 right: 24, top: 12, bottom: 12),
-                            child: Obx(() {
-                              double discount = controller.discount.value;
-                              double actualPrice =
-                                  controller.totalBill - discount;
-                              actualPrice = actualPrice < 0 ? 0.0 : actualPrice;
-                              return Text(
-                                '${actualPrice.toStringAsFixed(2)}', // Display calculated bill
-                                style: GoogleFonts.poppins(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black,
-                                ),
-                              );
-                            }),
+                            child: Obx(
+                              () {
+                                double discount = controller.discount.value;
+                                double actualPrice =
+                                    controller.totalBill - discount;
+                                actualPrice =
+                                    actualPrice < 0 ? 0.0 : actualPrice;
+                                return Text(
+                                  '${actualPrice.toStringAsFixed(2)}', // Display calculated bill
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black,
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         ],
                       ),
@@ -530,13 +529,13 @@ class _PaymentPageState extends State<PaymentPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0), // Reduce the radius
+            borderRadius: BorderRadius.circular(12.0),
           ),
-          title: const SizedBox.shrink(), // Remove title for a cleaner look
+          title: const SizedBox.shrink(), // No title for cleaner UI
           content: const Text(
             'Do you want a receipt?',
             style: TextStyle(
-              fontSize: 14, // Adjusted font size
+              fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -544,12 +543,12 @@ class _PaymentPageState extends State<PaymentPage> {
             TextButton(
               child: const Text(
                 'No',
-                style: TextStyle(color: Colors.black), // Black color text
+                style: TextStyle(color: Colors.black),
               ),
               onPressed: () {
-                // Complete sales, clear cart, and navigate to Home page
-                controller.clearCart();
-                Navigator.of(context).pop(); // Close the dialog
+                controller
+                    .completePaymentWithoutReceipt(); // Clear cart and update stock
+                Navigator.of(context).pop(); // Close dialog
                 Get.offNamed(AppRoutes.homeVtwoPage, arguments: {
                   'itemName': "",
                   'token': "",
@@ -565,8 +564,8 @@ class _PaymentPageState extends State<PaymentPage> {
               onPressed: () {
                 final controller = Get.find<HomeVtwoController>();
 
-                controller.generateReceipt(); // Call the method
-                Get.back(); // Close the dialog
+                controller.generateReceipt(); // Generate receipt
+                Get.back(); // Close dialog
 
                 print("Generating receipt");
 

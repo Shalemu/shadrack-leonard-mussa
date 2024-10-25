@@ -39,7 +39,6 @@ class ReceiptController extends GetxController {
     String customerName = selectedCustomer.value;
     String paymentType = selectedPaymentMethod.value;
     String orderDate = DateTime.now().toString();
-    String shortId = '#TS-${DateTime.now().millisecondsSinceEpoch}';
 
     // Insert items into the local database
     for (var entry in cartItems.entries) {

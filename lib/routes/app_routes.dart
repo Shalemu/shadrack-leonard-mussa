@@ -83,7 +83,9 @@ class AppRoutes {
   static const String loginEmptyStateScreen = '/login_empty_state_screen';
   static const String signUpEmptyStateScreen = '/sign_up_empty_state_screen';
   static const String homeVtwoPage =
-      '/home_vtwo_page'; // Ensure lowercase consistency
+      '/home_vtwo_page'; 
+       static const String homeVtwoPage1 =
+      '/Pos'; // Ensure lowercase consistency
   static const String enterVerificationCodeScreen =
       '/enter_verification_code_screen';
   static const String forgotPasswordScreen = '/forgot_password_screen';
