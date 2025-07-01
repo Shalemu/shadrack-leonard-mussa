@@ -29,33 +29,8 @@
       <i class="fa fa-plus"></i> Register
     </button>
   </div>
-   @include('riport');
 
-  <!-- <p>Welcome to the Youth page content area.</p> -->
-
-  <!-- <h4>Members</h4> -->
-<table class="table">
-   <thead class="table-light">
-  
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Gender</th>
-      <th scope="col">Street</th>
-      <th scope="col">Phone</th>
-    </tr>
-  </thead>
-  <tbody class="table-group-divider">
-    @foreach ($records as $record)
-    <tr>
-      
-      <td>{{$record->name}}</td>
-      <td>{{$record->gender}}</td>
-      <td>{{$record->street}}</td>
-      <td>{{$record->phone}}</td>
-    </tr>
-    @endforeach
-  </tbody>
-</table>
+  <p>Welcome to the Youth page content area.</p>
 
   <!-- Modal Form -->
   <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">

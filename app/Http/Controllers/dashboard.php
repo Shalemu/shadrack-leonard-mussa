@@ -13,7 +13,11 @@ class Dashboard extends Controller
 
     public function youth()
     {
-        return view('department.Youth');
+       return view('Department.Youth');
+
+    }
+    public function Admin(){
+        return view('Admin.dashboard');
     }
 }
 

@@ -26,4 +26,23 @@ class YouthController extends Controller
     return redirect()->back()->with('success', 'Youth registered successfully!');
 }
 
+public function member()
+{
+    $records = Youth::all(); // get all youth records
+    $maleCount = Youth::where('gender', 'Male')->count();
+    $femaleCount = Youth::where('gender', 'Female')->count();
+    $marriedCount = Youth::where('marital_status', 'Married')->count();
+    $unmarriedCount = Youth::where('marital_status', 'Single')->count();
+
+    return view('Department.Youth', compact(
+        'records',
+         'maleCount',
+          'femaleCount',
+           'marriedCount',
+            'unmarriedCount'
+        ));
+}
+
+
+
 }

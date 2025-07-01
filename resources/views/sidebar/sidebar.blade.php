@@ -14,9 +14,9 @@
         <i class="fas fa-cog"></i> <span>Department</span>
       </a>
       <ul class="collapse list-unstyled ps-4" id="departmentSubmenu">
-        <li><a href="{{ route('dashboard.youth') }}">Youth Department</a></li>
+        <li><a href="{{ route('department.youth') }}">Youth Department</a></li>
         <li><a href="#">Construction Department</a></li>
-        <li><a href="#">EK</a></li>
+        <li><a href="{{route('department.children')}}">EK</a></li>
       </ul>
     </li>
 
@@ -28,7 +28,7 @@
         <i class="fas fa-concierge-bell"></i> <span>Services</span>
       </a>
       <ul class="collapse list-unstyled ps-4" id="servicesSubmenu">
-        <li><a href="#">Sunday Service</a></li>
+        <li><a href="{{route('sunday')}}">Sunday Service</a></li>
         <li><a href="#">Wednesday Service</a></li>
         <li><a href="#">Thursday Service</a></li>
         <li><a href="#">Saturday Service</a></li>
