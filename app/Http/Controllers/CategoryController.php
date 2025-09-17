@@ -13,21 +13,18 @@ class CategoryController extends Controller
      */
 public function index(Request $request)
 {
-    $categories = Category::all();
+    $categories = Category::paginate(6); 
+    return view('categories.index', compact('categories'));
 
-    return response()->json([
-        'message' => 'Categories retrieved successfully',
-        'data'    => CategoryResources::collection($categories),
-    ], 200);
 }
 
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new category
      */
     public function create()
     {
-        return view('category.create');
+        return view('categories.create');
     }
 
     /**
@@ -85,7 +82,7 @@ public function index(Request $request)
      */
     public function show(Category $category)
     {
-        return view('category.show');
+        return view('categories.show', compact('category'));
     }
 
     /**
@@ -93,22 +90,39 @@ public function index(Request $request)
      */
     public function edit(Category $category)
     {
-        return view('category.edit');
+        return view('categories.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
-    {
-        return view('category.update');
+   public function update(Request $request, Category $category)
+{
+    $validated = $request->validate([
+        'name'        => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'image'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    
+    ]);
+
+    // Handle image upload if present
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('categories', 'public');
+        $validated['image'] = $imagePath;
     }
+
+    $category->update($validated);
+   
+
+    return redirect()->route('categories.edit', $category->id)
+                     ->with('success', 'Category updated successfully!');
+}
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Category $category)
     {
-       return view('category.delete');
+       return view('categories.delete');
     }
 }

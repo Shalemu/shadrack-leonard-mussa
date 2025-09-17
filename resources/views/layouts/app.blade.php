@@ -111,12 +111,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('products.create') }}" class="nav-link {{ request()->is('products*') ? 'active' : '' }}">
+                    <a href="{{ route('products.index') }}" class="nav-link {{ request()->is('products*') ? 'active' : '' }}">
                         <i class="bi bi-box-seam me-2"></i> Products
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('categories.create') }}" class="nav-link {{ request()->is('categories*') ? 'active' : '' }}">
+                    <a href="{{ route('categories.index') }}" class="nav-link {{ request()->is('categories*') ? 'active' : '' }}">
                         <i class="bi bi-tags me-2"></i> Categories
                     </a>
                 </li>
@@ -176,7 +176,13 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Sign out</a></li>
+                        <li>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="dropdown-item">Sign out</button>
+                    </form>
+                </li>
+
                     </ul>
                 </li>
             </ul>

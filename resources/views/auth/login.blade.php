@@ -111,15 +111,22 @@
 
 <div class="login-card">
     <div class="login-card-header">Sign In</div>
-    <!-- <div class="social-buttons">
-        <a href="#"><i class="fa fa-facebook"></i></a>
-        <a href="#"><i class="fa fa-github"></i></a>
-        <a href="#"><i class="fa fa-google"></i></a>
-    </div> -->
+ 
     <div class="login-card-body">
     
-         <form method="POST" action="{{ route('login.submit') }}">
+        <form method="POST" action="{{ route('login.submit') }}">
+        @csrf
 
+             <!-- Display Errors -->
+                @if ($errors->any())
+                    <div style="color: red; margin-bottom: 15px; font-size: 0.9rem;">
+                        <ul style="list-style:none; padding-left:0;">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                @csrf
             <input type="email" name="email" placeholder="Email" required>
