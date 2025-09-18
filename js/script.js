@@ -1,13 +1,10 @@
+
 // ========================
 // Hero Dynamic Background
 // ========================
 const hero = document.querySelector('.hero-section');
 const images = [
-//   "images/hero-cover.jpg",
-//   "images/hero-cover2.jpeg",
-//   "images/header-cover.jpeg"
-
- "images/banner-1.jpg",
+  "images/banner-1.jpg",
   "images/banner-3.jpg",
   "images/banner-4.jpg"
 ];
@@ -49,20 +46,17 @@ if (tagline) {
 const menuLinks = document.querySelectorAll('.nav-link');
 const allSections = document.querySelectorAll('section');
 
-// Map IDs from menu to section classes
 const sectionGroups = {
   home: ['home-section'],
   about: ['about-section'],
-  product: ['product-section'], // keep if you’ll add a product section
+  product: ['product-category'], // ✅ points to categories section
   'store-locator': ['store-locator-section'],
   partner: ['partner-section'],
   contact: ['contact-section'],
   news: ['news-section']
 };
 
-// Show section with animation
 function showSection(sectionClass) {
-  // hide all sections first
   allSections.forEach(sec => {
     if (!sec.classList.contains('footer-section')) {
       sec.style.display = 'none';
@@ -71,7 +65,6 @@ function showSection(sectionClass) {
     }
   });
 
-  // display target section with fade + slide
   const sectionsToShow = document.querySelectorAll(`.${sectionClass}`);
   sectionsToShow.forEach(sec => {
     sec.style.display = 'block';
@@ -85,7 +78,12 @@ function showSection(sectionClass) {
     }, 100);
   });
 
-  // smooth scroll with header offset
+ 
+  if (sectionClass === 'home-section') {
+    document.getElementById('products-section').style.display = 'none';
+    document.getElementById('products-grid').innerHTML = '';
+  }
+
   const header = document.querySelector("header");
   const headerOffset = header ? header.offsetHeight : 80;
   const firstSection = sectionsToShow[0];
@@ -96,7 +94,7 @@ function showSection(sectionClass) {
   }
 }
 
-// Handle menu clicks
+
 menuLinks.forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
@@ -108,13 +106,11 @@ menuLinks.forEach(link => {
       });
     }
 
-    // update active link style
     menuLinks.forEach(l => l.classList.remove('active-link'));
     link.classList.add('active-link');
   });
 });
 
-// Highlight active menu on scroll
 window.addEventListener('scroll', () => {
   const scrollPos = window.scrollY + (document.querySelector("header")?.offsetHeight || 80) + 50;
 
@@ -134,13 +130,11 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// Show home section on page load
 window.addEventListener('DOMContentLoaded', () => {
   sectionGroups.home.forEach(secClass => {
     showSection(secClass);
   });
-
-  // Default active link
   const defaultLink = document.querySelector('.nav-link[href="#home"]');
   if (defaultLink) defaultLink.classList.add('active-link');
 });
+
