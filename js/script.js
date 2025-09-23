@@ -49,7 +49,7 @@ const allSections = document.querySelectorAll('section');
 const sectionGroups = {
   home: ['home-section'],
   about: ['about-section'],
-  product: ['product-category'], // ✅ points to categories section
+  product: ['product-category'], 
   'store-locator': ['store-locator-section'],
   partner: ['partner-section'],
   contact: ['contact-section'],
@@ -80,6 +80,7 @@ function showSection(sectionClass) {
 
  
   if (sectionClass === 'home-section') {
+    document.getElementById('cart-section').style.display = 'none';
     document.getElementById('products-section').style.display = 'none';
     document.getElementById('products-grid').innerHTML = '';
   }

@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Double H</title>
+    
     <link rel="stylesheet" href="styles.css">
     <!-- Font Awesome for icons -->
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+ 
    
 
 </head>
@@ -205,22 +209,144 @@
   </div>
 </section>
 
-
 <!-- Products Section -->
 <section class="products-section home-section" id="products-section" style="display:none;">
   <div class="container">
-    <h2 class="section-title"></h2>
+
+    <!-- Sticky Header -->
+    <div class="products-header">
+      <div class="cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count">0</span>
+      </div>
+      <h2 class="section-title"></h2>
+    </div>
+
     <div class="title-underline">
       <span class="line"></span>
       <span class="icon">✻</span>
       <span class="line"></span>
     </div>
+
+    <!-- Products grid -->
     <div class="product-grid" id="products-grid">
       <!-- Products will be injected here -->
-    <button type="button" class="btn btn-outline-danger">Add to Cart</button>
     </div>
   </div>
 </section>
+
+
+<!-- cart-section -->
+<section class="cart-section py-5 home-section" id="cart-section" style="display:none;">
+  <div class="container">
+    <div class="row g-4">
+
+      <!-- Left: Cart Items -->
+      <div class="col-lg-8">
+        <a href="#" class="continue-shopping">
+          <i class="fas fa-arrow-left me-2"></i> Continue shopping
+        </a>
+        <h3 class="fw-bold mb-3">Shopping Cart</h3>
+        <p class="text-muted">You have <span id="cart-count">0</span> items in your cart</p>
+
+        <!-- Cart Table -->
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle">
+           <thead class="table-light">
+            <tr>
+              <th scope="col">Product</th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Subtotal</th>
+              <th scope="col">Action</th> <!-- New column -->
+            </tr>
+          </thead>
+
+            <tbody id="cart-items">
+              <!-- Items dynamically injected by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Update Cart Button -->
+        <div class="text-end mt-3">
+          <button class="btn btn-danger" id="update-cart-btn">Update Cart</button>
+
+        </div>
+
+        <!-- Empty Cart -->
+        <!-- <div id="empty-cart" class="text-center d-none mt-4">
+          <img src="images/empty-cart.png" alt="Empty Cart" class="img-fluid mb-3" style="max-width:200px;">
+          <p class="fw-bold">Your cart is empty</p>
+        </div> -->
+
+        <!-- Success Message -->
+      <div id="order-success" style="display:none;"></div>
+
+      </div>
+
+      <!-- Right: User Details -->
+
+      <div class="col-lg-4">
+        <div class="checkout-box">
+          <h5 class="fw-bold mb-3">User Details</h5>
+
+          <!-- User Info -->
+          <input type="text" class="form-control mb-2" placeholder="Full Name">
+          <input type="text" class="form-control mb-2" placeholder="Phone Number">
+          <input type="email" class="form-control mb-3" placeholder="Email">
+
+          <!-- Delivery Location -->
+          <label class="form-label fw-semibold">Delivery Location</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="location" value="dar">
+            <label class="form-check-label">Dar es Salaam</label>
+          </div>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="location" value="outside">
+            <label class="form-check-label">Outside Dar es Salaam</label>
+          </div>
+          <small class="d-block mb-3" id="delivery-msg" style="display:none;">
+         delivery costs will be paid by the customer.
+          </small>
+
+          <!-- Share Location -->
+          <button class="btn btn-secondary w-100 mb-3">
+            <i class="fas fa-map-marker-alt me-2"></i> Share Location
+          </button>
+
+
+          <!-- Summary -->
+          <div class="summary-box">
+            <p class="d-flex justify-content-between mb-1">
+              <span>Subtotal:</span>
+              <span class="fw-bold">Tsh <span id="cart-subtotal">0.00</span></span>
+            </p>
+            <p class="d-flex justify-content-between mb-1">
+              <span>Shipping:</span>
+              <span class="fw-bold">Tsh <span id="cart-shipping">0.00</span></span>
+            </p>
+            <hr class="my-2">
+            <p class="d-flex justify-content-between fs-5 fw-bold">
+              <span>Total:</span>
+              <span>Tsh <span id="cart-total">0.00</span></span>
+            </p>
+          </div>
+
+          <!-- Checkout -->
+          <button class="checkout-btn mt-3">
+            Tsh <span id="checkout-amount">0.00</span> &nbsp; | &nbsp; CHECKOUT →
+          </button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+</section>
+
+
+
+
 
 
     <!-- Product Categories Grid -->
