@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cleansers & Washes</title>
+    
+  
+    <!-- Font Awesome for icons -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+     <!-- <link rel="stylesheet" href="../styles.css"> -->
+
+</head>
+<style>
+
+body { background: #fff; color: #333; line-height: 1.6; }
+ul { list-style: none; margin: 0; padding: 0; }
+a { text-decoration: none; }
+
+header {
+  background: #831619;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 40px;
+}
+
+.nav-logo img {
+  width: 60px;
+  filter: brightness(0) invert(1);
+}
+
+.nav-menu {
+  display: flex;
+  gap: 20px;
+  text-decoration: none;
+}
+
+.nav-link {
+  color: white;
+  padding: 8px 12px;
+  font-size: 16px;
+  text-decoration: none;
+  border: none;         
+}
+
+.nav-link:hover {
+  border: 2px solid white;
+  border-radius: 6px;
+  transition: 0.3s;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-link.active-link {
+  border: 1px solid white; 
+  border-radius: 6px;
+  text-decoration: none;   
+  color: white;
+}
+
+
+/* Dropdown */
+.nav-item.dropdown {
+  position: relative;      
+}
+
+/* Dropdown menu base */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff; /* white background */
+  min-width: 220px; /* wider for readability */
+  display: flex;
+  flex-direction: column;
+  padding: 6px 0;
+  margin-top: 8px; /* spacing from navbar */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  border-radius: 8px;
+  z-index: 1000;
+}
+
+/* Show dropdown */
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Dropdown items */
+.dropdown-menu li a {
+  padding: 12px 18px;
+  color: #333;
+  font-size: 15px;
+  font-weight: 500;
+  display: block;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.dropdown-menu li a:hover {
+  background: #831619;   
+  color: #fff;
+  padding-left: 24px;   
+}
+
+/* Optional: first & last item styling for smoother rounded look */
+.dropdown-menu li:first-child a {
+  margin-top: 6px;
+}
+.dropdown-menu li:last-child a {
+  margin-bottom: 6px;
+}
+
+
+.navbar :where(#menu-close-button, #menu-open-button){
+    display: none; /* hide menu buttons by default */
+    font-size: var(--font-size-lg);
+    background: none;
+    border: none;
+    cursor: pointer;
+
+}
+
+.dropdown-menu li a {
+  border: none !important;
+}
+
+
+#menu-open-button,
+#menu-close-button {
+  display: none;
+}
+
+#products-section {
+  padding: 100px 10px 40px;
+  background: #fff;
+  margin-top: 40px;
+}
+
+
+.section-title {
+  text-align: center;
+  font-size: 26px;
+  color: #1a1818;
+  font-weight: 700;
+  margin-bottom: 40px;
+  font-family: 'Playfair Display', serif;
+}
+
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 per row on desktop */
+  gap: 20px; /* even spacing */
+  justify-content: center;
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+
+@media (max-width: 1200px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 per row */
+  }
+}
+
+@media (max-width: 900px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 per row */
+  }
+}
+
+@media (max-width: 600px) {
+  .products-grid {
+    grid-template-columns: 1fr; /* 1 per row on phones */
+  }
+}
+
+/* Product card styling */
+.product-item {
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+  width: 100%;
+  margin: 0;
+}
+
+.product-item:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.image-wrapper {
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+}
+
+.product-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+
+
+.product-item .card-content {
+  padding: 15px;
+  text-align: center;
+}
+
+.product-item h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.product-item p {
+  font-size: 14px;
+  color: #666;
+  min-height: 40px;
+}
+
+.product-item .price {
+  display: block;
+  font-weight: bold;
+  color: #d35400;
+  margin-top: 10px;
+}
+
+.btn-add-cart {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease, transform 0.2s ease;
+}
+
+.btn-add-cart:hover {
+  background: transparent;
+  color: #c0392b;
+  border: 1px solid #c0392b;
+  transform: translateY(-2px);
+}
+
+/* Empty category message */
+.no-products {
+  text-align: center;
+  color: #666;
+  padding: 80px 20px;
+}
+
+.no-products i {
+  font-size: 60px;
+  color: #831619;
+  margin-bottom: 15px;
+}
+
+.no-products p {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.products-header .cart-icon {
+  grid-column: 3; /* force cart to right */
+  justify-self: end;
+}
+
+
+.cart-icon {
+  font-size: 22px;
+  color: #333;
+  cursor: pointer;
+}
+
+.cart-icon i {
+  font-size: 26px;
+}
+
+.cart-icon .cart-count {
+  position: absolute;
+  top: -2px;
+  right: -12px;
+  background: #e74c3c;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+
+
+.container-cart {
+  display: flex;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.cart-left {
+  flex: 2;
+}
+
+
+.cart-left .continue-shopping {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: #333;
+  text-decoration: none;
+}
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  padding: 15px;
+  justify-content: space-between;
+}
+
+.cart-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.cart-item-info {
+  flex: 1;
+  margin-left: 15px;
+}
+
+.cart-item-info h4 {
+  margin: 0 0 5px;
+  font-size: 16px;
+}
+
+.cart-item-info p {
+  margin: 0;
+  color: #555;
+  font-size: 14px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.quantity-controls button {
+  background: #831619;
+  border: none;
+  color: #fff;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+.cart-right input {
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+}
+.checkout-box {
+  background: #2a6f97;
+  color: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+  position: sticky;   /* Stick to top */
+  top: 20px;          /* Space from top */
+  height: fit-content; /* Prevent stretching */
+}
+
+
+.checkout-box input,
+.checkout-box .form-check-input {
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.checkout-box label {
+  font-size: 14px;
+}
+
+.summary-box {
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 15px;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 14px;
+  background: #831619;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  color: black;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+.btn-outline-danger {
+  padding: 4px 8px;
+}
+
+#order-success {
+  padding: 15px;
+  border-radius: 8px;
+  background: #d4edda;
+  color: #155724;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.btn-quantity {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease, transform 0.2s ease;
+}
+
+.btn-quantity:hover {
+  background: transparent;
+  color: #c0392b;
+  border: 1px solid #c0392b;
+  transform: translateY(-2px);
+}
+
+</style>
+<body>
+
+<header>
+  <nav class="navbar">
+    <div class="nav-logo">
+      <img src="../images/logo.png" class="logo-image" alt="Double H Logo" />
+    </div>
+
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+
+      <!-- Dropdown -->
+      <li class="nav-item dropdown">
+        <a href="#product" class="nav-link">Products ▾</a>
+        <ul class="dropdown-menu">
+          <li><a href="oils.html">Oils & Massage</a></li>
+          <li><a href="cleansers.html">Cleansers & Washes</a></li>
+          <li><a href="creams.html">Creams & Butters</a></li>
+          <li><a href="lotions.html">Lotions & Moisturizers</a></li>
+          <li><a href="serums.html">Serums & Toners</a></li>
+          <li><a href="scrubs.html">Scrubs & Exfoliators</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item"><a href="#about" class="nav-link">About Us</a></li>
+      <li class="nav-item"><a href="#store-locator" class="nav-link">Our Stores</a></li>
+      <li class="nav-item"><a href="#news" class="nav-link">News & Updates</a></li>
+      <li class="nav-item"><a href="#testimonial" class="nav-link">Testimonial</a></li>
+      <li class="nav-item"><a href="#contact" class="nav-link">Contacts</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+
+
+<section id="products-section">
+  <h2 class="section-title">Serums & Toners</h2>
+  <div id="products-grid" class="products-grid"></div>
+
+    <div class="cart-icon-container">
+  <i class="fas fa-shopping-cart cart-icon" style="font-size:24px; color:white; cursor:pointer; position:relative;">
+    <span id="cart-count" style="
+      position:absolute; top:-10px; right:-10px; 
+      background:red; color:white; font-size:12px; 
+      width:18px; height:18px; border-radius:50%; 
+      display:flex; align-items:center; justify-content:center;
+    ">0</span>
+  </i>
+</div>
+</section>
+
+<br><br><br><br><br><br><br>
+<section class="cart-section py-5 home-section" id="cart-section" style="display:none;">
+  <div class="container">
+    <div class="row g-4">
+
+      <!-- Left: Cart Items -->
+      <div class="col-lg-8">
+        <a href="#" class="continue-shopping">
+          <i class="fas fa-arrow-left me-2"></i> Continue shopping
+        </a>
+        <h3 class="fw-bold mb-3">Shopping Cart</h3>
+        <p class="text-muted">You have <span id="cart-count">0</span> items in your cart</p>
+
+        <!-- Cart Table -->
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle">
+           <thead class="table-light">
+            <tr>
+              <th scope="col">Product</th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Subtotal</th>
+              <th scope="col">Action</th> <!-- New column -->
+            </tr>
+          </thead>
+
+            <tbody id="cart-items">
+              <!-- Items dynamically injected by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Update Cart Button -->
+        <div class="text-end mt-3">
+          <button class="btn btn-danger" id="update-cart-btn">Update Cart</button>
+
+        </div>
+
+        <!-- Empty Cart -->
+        <!-- <div id="empty-cart" class="text-center d-none mt-4">
+          <img src="images/empty-cart.png" alt="Empty Cart" class="img-fluid mb-3" style="max-width:200px;">
+          <p class="fw-bold">Your cart is empty</p>
+        </div> -->
+
+        <!-- Success Message -->
+      <div id="order-success" style="display:none;"></div>
+
+      </div>
+
+      <!-- Right: User Details -->
+
+      <div class="col-lg-4">
+        <div class="checkout-box">
+          <h5 class="fw-bold mb-3">User Details</h5>
+
+          <!-- User Info -->
+          <input type="text" class="form-control mb-2" placeholder="Full Name" required="">
+          <input type="text" class="form-control mb-2" placeholder="Phone Number" required="">
+          <input type="email" class="form-control mb-3" placeholder="Email" required="">
+
+          <!-- Delivery Location -->
+       <!-- Delivery Location -->
+        <label class="form-label fw-semibold">Delivery Location</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="location" value="dar">
+          <label class="form-check-label">Dar es Salaam</label>
+        </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="radio" name="location" value="outside">
+          <label class="form-check-label">Outside Dar es Salaam</label>
+        </div>
+
+        <!-- Outside Dar es Salaam inputs -->
+        <div id="outside-fields" style="display:none;">
+          <input type="text" class="form-control mb-2" id="region" placeholder="Region" required="">
+          <input type="text" class="form-control mb-3" id="district" placeholder="District" required="">
+        </div>
+
+        <small class="d-block mb-3" id="delivery-msg" style="display:none;">
+          Delivery costs will be paid by the customer.
+        </small>
+
+        <!-- Share Location (only Dar) -->
+        <button id="share-location-btn" class="btn btn-secondary w-100 mb-3" style="display:none;">
+          <i class="fas fa-map-marker-alt me-2"></i> Share Location
+        </button>
+
+
+
+          <!-- Summary -->
+          <div class="summary-box">
+            <p class="d-flex justify-content-between mb-1">
+              <span>Subtotal:</span>
+              <span class="fw-bold">Tsh <span id="cart-subtotal">0.00</span></span>
+            </p>
+            <p class="d-flex justify-content-between mb-1">
+              <span>Shipping:</span>
+              <span class="fw-bold">Tsh <span id="cart-shipping">0.00</span></span>
+            </p>
+            <hr class="my-2">
+            <p class="d-flex justify-content-between fs-5 fw-bold">
+              <span>Total:</span>
+              <span>Tsh <span id="cart-total">0.00</span></span>
+            </p>
+          </div>
+
+          <!-- Checkout -->
+          <button class="checkout-btn mt-3">
+            Tsh <span id="checkout-amount">0.00</span> &nbsp; | &nbsp; ORDER →
+          </button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+
+  // Global cart array
+let cart = [];
+
+// Cart UI elements
+const cartCountElement = document.getElementById('cart-count');
+const cartItemsContainer = document.getElementById('cart-items');
+
+
+// Add product to cart
+function addToCart(product) {
+  const existing = cart.find(item => item.id === product.id);
+  if (existing) {
+    existing.quantity++;
+  } else {
+    cart.push({
+      id: product.id,
+      name: product.Product_name,
+      price: parseFloat(product.price),
+      image: product.image_url ?? 'images/default-product.jpg',
+      quantity: 1
+    });
+  }
+  updateCartUI();
+}
+
+// Update cart UI
+function updateCartUI() {
+  cartItemsContainer.innerHTML = '';
+  let subtotal = 0;
+
+  cart.forEach(item => {
+    const itemTotal = item.price * item.quantity;
+    subtotal += itemTotal;
+
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>
+        <div style="display:flex; align-items:center;">
+          <img src="${item.image}" alt="${item.name}" style="width:60px; height:60px; object-fit:cover; margin-right:10px; border-radius:6px;">
+          <span>${item.name}</span>
+        </div>
+      </td>
+      <td>${item.price} Tsh</td>
+   <td>
+  <button type="button" class="btn-quantity" onclick="updateQuantity(${item.id}, -1)">-</button>
+  <span>${item.quantity}</span>
+  <button type="button" class="btn-quantity" onclick="updateQuantity(${item.id}, 1)">+</button>
+</td>
+
+      <td>${itemTotal} Tsh</td>
+      <td>
+        <button class="btn btn-sm btn-danger" onclick="removeFromCart(${item.id})">
+          <i class="fas fa-trash"></i>
+        </button>
+      </td>
+    `;
+
+    cartItemsContainer.appendChild(row);
+  });
+
+  const shipping = 20;
+  const total = subtotal + shipping;
+
+  document.getElementById('cart-subtotal').textContent = subtotal.toFixed(2);
+  document.getElementById('cart-total').textContent = total.toFixed(2);
+  cartCountElement.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+}
+
+// Update quantity
+function updateQuantity(productId, change) {
+  const item = cart.find(p => p.id === productId);
+  if (item) {
+    item.quantity += change;
+    if (item.quantity <= 0) {
+      cart = cart.filter(p => p.id !== productId);
+    }
+  }
+  updateCartUI();
+}
+
+// Remove from cart
+function removeFromCart(productId) {
+  cart = cart.filter(item => item.id !== productId);
+  updateCartUI();
+}
+
+// Show cart on icon click
+document.querySelector(".cart-icon").addEventListener("click", () => {
+  document.getElementById("products-section").style.display = "none";
+  document.getElementById("cart-section").style.display = "block";
+});
+
+function loadCategoryProducts(categoryId, categoryName) {
+  fetch(`http://127.0.0.1:8000/api/categories/${categoryId}/products`)
+    .then(response => response.json())
+    .then(data => {
+      const productsGrid = document.getElementById('products-grid');
+      productsGrid.innerHTML = "";
+
+      const title = document.querySelector('#products-section .section-title');
+      title.textContent = categoryName;
+
+     
+      if (!data.data || data.data.length === 0) {
+        productsGrid.innerHTML = `
+          <div class="no-products">
+            <i class="fa-solid fa-box-open"></i>
+            <p>This category has no products yet.</p>
+          </div>
+        `;
+        return;
+      }
+
+ 
+      data.data.forEach(product => {
+        const card = document.createElement('div');
+        card.classList.add('product-item');
+        const imageSrc = product.image_url ?? 'images/default-product.jpg';
+
+        card.innerHTML = `
+          <div class="image-wrapper">
+            <img src="${imageSrc}" alt="${product.Product_name}">
+          </div>
+          <div class="card-content">
+            <h3>${product.Product_name}</h3>
+            <p>${product.description}</p>
+            <span class="price">Price: ${product.price} Tsh</span>
+            <button type="button" class="btn-add-cart">Add to Cart</button>
+          </div>
+        `;
+
+        card.querySelector('.btn-add-cart').addEventListener('click', () => addToCart(product));
+        productsGrid.appendChild(card);
+      });
+    })
+    .catch(err => {
+     
+      console.error('Error fetching products:', err);
+      document.getElementById('products-grid').innerHTML = `
+        <div class="no-products">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <p>Failed to load products. Please check your connection or try again later.</p>
+        </div>
+      `;
+    });
+}
+
+// Auto-load products for the current page
+document.addEventListener("DOMContentLoaded", () => {
+  const page = window.location.pathname.split("/").pop();
+
+  const categories = {
+    "oils.html": { id: 1, name: "Oils & Massage" },
+    "cleansers.html": { id: 2, name: "Cleansers & Washes" },
+    "creams.html": { id: 3, name: "Creams & Butters" },
+    "lotions.html": { id: 4, name: "Lotions & Moisturizers" },
+    "serums.html": { id: 5, name: "Serums & Toners" },
+    "scrubs.html": { id: 6, name: "Scrubs & Exfoliators" }
+  };
+
+  if (categories[page]) {
+    const { id, name } = categories[page];
+    loadCategoryProducts(id, name);
+  }
+});
+
+function shareLocation() {
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(position => {
+      alert(`Location shared: Lat: ${position.coords.latitude}, Lng: ${position.coords.longitude}`);
+    }, () => {
+      alert("Location access denied.");
+    });
+  } else {
+    alert("Geolocation not supported in your browser.");
+  }
+}
+// submit order
+document.querySelector('.checkout-btn').addEventListener('click', createBooking);
+
+async function createBooking() {
+  const fullName = document.querySelector('.checkout-box input[placeholder="Full Name"]').value;
+  const phone = document.querySelector('.checkout-box input[placeholder="Phone Number"]').value;
+  const email = document.querySelector('.checkout-box input[placeholder="Email"]').value;
+
+  if (!cart || cart.length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
+
+  let address = "";
+  if (selectedLocationType === "dar") {
+    address = "Dar es Salaam";
+    if (!locationLink) {
+      alert("Please share your location!");
+      return;
+    }
+  } else if (selectedLocationType === "outside") {
+    const region = document.getElementById("region").value;
+    const district = document.getElementById("district").value;
+    if (!region || !district) {
+      alert("Please enter region and district!");
+      return;
+    }
+    address = `${region} - ${district}`;
+  } else {
+    alert("Please select delivery location!");
+    return;
+  }
+
+  const bookingData = {
+    full_name: fullName,
+    phone: phone,
+    email: email,
+    address: address,
+    location_link: locationLink, // optional field
+    cart: cart.map(item => ({
+      id: item.id,
+      price: item.price,
+      quantity: item.quantity
+    }))
+  };
+
+  try {
+    const response = await fetch("https://new.doublehcosmetics.co.tz/public/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(bookingData),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      // Clear cart
+      cart = [];
+      updateCartUI(); // Make sure this function updates cart items, totals, and count
+
+      // Show success message in cart section
+      const successBox = document.getElementById("order-success");
+      successBox.innerHTML = `
+        <div class="alert alert-success text-center mt-4">
+          🎉 Your order has been submitted successfully! <br>
+          Order ID: <strong>${data.order_id}</strong>
+        </div>
+      `;
+      successBox.style.display = "block";
+
+      // Reset cart totals and count
+      document.getElementById('cart-subtotal').textContent = "0.00";
+      document.getElementById('cart-total').textContent = "0.00";
+      document.getElementById('checkout-amount').textContent = "0.00";
+      document.querySelector('#cart-count').textContent = "0";
+
+    } else {
+      alert("Booking failed: " + (data.message || JSON.stringify(data.errors)));
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong. Please try again.");
+  }
+}
+
+
+let locationLink = "";
+let selectedLocationType = "";
+
+document.querySelectorAll('input[name="location"]').forEach(radio => {
+  radio.addEventListener('change', (e) => {
+    selectedLocationType = e.target.value;
+
+    if (selectedLocationType === 'dar') {
+      document.getElementById('delivery-msg').style.display = 'none';
+      document.getElementById('outside-fields').style.display = 'none';
+      document.getElementById('share-location-btn').style.display = 'block';
+    } else {
+      document.getElementById('delivery-msg').style.display = 'block';
+      document.getElementById('outside-fields').style.display = 'block';
+      document.getElementById('share-location-btn').style.display = 'none';
+      locationLink = ""; // reset
+    }
+  });
+});
+
+document.getElementById('share-location-btn').addEventListener('click', () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+      locationLink = `https://www.google.com/maps?q=${lat},${lng}`;
+      alert("Location captured successfully!");
+    }, () => {
+      alert("Location access denied.");
+    });
+  }
+});
+
+</script>
+
+<script src="../script.js"></script>
+</body>
+</html>

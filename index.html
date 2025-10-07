@@ -5,53 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Double H</title>
     
-    <link rel="stylesheet" href="styles.css">
+  
     <!-- Font Awesome for icons -->
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+       <link rel="stylesheet" href="styles.css">
 
  
    
 
 </head>
 <body>
-  <header>
+<header>
   <nav class="navbar">
     <div class="nav-logo">
-      <img src="images/logo.png" class ="logo-image" alt="Double H Logo" />
-      <!-- <h2 class="logo-text">Double H</h2> -->
+      <img src="images/logo.png" class="logo-image" alt="Double H Logo" />
     </div>
 
     <ul class="nav-menu">
-         <button id="menu-close-button" class="fas fa-times"></button>
       <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
-      
-     
-      
+
       <!-- Dropdown -->
       <li class="nav-item dropdown">
         <a href="#product" class="nav-link">Products ▾</a>
         <ul class="dropdown-menu">
-          <li><a href="#">Oils & Massage</a></li>
-          <li><a href="#">Cleansers & Washes</a></li>
-          <li><a href="#">Creams & Butters</a></li>
-          <li><a href="#">Lotions & Moisturizers</a></li>
-          <li><a href="#">Serums & Toners</a></li>
-          <li><a href="#">Scrubs & Exfoliators</a></li>
+        <li><a href="categories/oils.html">Oils & Massage</a></li>
+        <li><a href="categories/cleansers.html">Cleansers & Washes</a></li>
+        <li><a href="categories/creams.html">Creams & Butters</a></li>
+        <li><a href="categories/lotions.html">Lotions & Moisturizers</a></li>
+        <li><a href="categories/serums.html">Serums & Toners</a></li>
+        <li><a href="categories/scrubs.html">Scrubs & Exfoliators</a></li>
         </ul>
       </li>
 
-       <li class="nav-item"><a href="#about" class="nav-link">About Us</a></li>
-
+      <li class="nav-item"><a href="#about" class="nav-link">About Us</a></li>
       <li class="nav-item"><a href="#store-locator" class="nav-link">Our Stores</a></li>
-       <li class="nav-item"><a href="#news" class="nav-link">News & Updates</a></li>
-       <li class="nav-item"><a href="#news" class="nav-link">Testimonial</a></li>
+      <li class="nav-item"><a href="#news" class="nav-link">News & Updates</a></li>
+      <li class="nav-item"><a href="#testimonial" class="nav-link">Testimonial</a></li>
       <li class="nav-item"><a href="#contact" class="nav-link">Contacts</a></li>
-      
     </ul>
- <button id="menu-open-button" class="fas fa-bars"></button>
   </nav>
 </header>
+
 
 <main>
 
@@ -70,15 +66,15 @@
 
 
 <section class="welcome-section home-section" id="welcome">
-  <div class="container">
-    <h2 class="section-title">Welcome to Double H Cosmetic</h2>
+  <div class="welcome-container">
+    <h2 class="section-title">Welcome to <span class="double_h"> Double H Cosmetics</span></h2>
     <div class="title-underline">
       <span class="line"></span>
       <span class="icon">✻</span>
       <span class="line"></span>
     
     </div>
-    <h3 class="Tagline">Where beauty begins</h3>
+    <!-- <h3 class="Tagline">Where beauty begins</h3> -->
 
     <p class="welcome-description">
       Double H is an award-winning cosmetic brand that specialises in skin care solutions. Our products are recommended 
@@ -97,7 +93,7 @@
 
 <!-- New product section -->
 <section class="new-product-section home-section" id="new-products">
-  <div class="container">
+  <div class="new-product-container">
     <h2 class="section-title">New Products</h2>
     <div class="title-underline">
       <span class="line"></span>
@@ -196,7 +192,7 @@
 
 <!-- Categories Section -->
 <section class="product-category home-section" id="categories-section">
-  <div class="container">
+  <div class="category-container">
     <h2 class="section-title">Product Categories</h2>
     <div class="title-underline">
       <span class="line"></span>
@@ -292,28 +288,37 @@
           <h5 class="fw-bold mb-3">User Details</h5>
 
           <!-- User Info -->
-          <input type="text" class="form-control mb-2" placeholder="Full Name">
-          <input type="text" class="form-control mb-2" placeholder="Phone Number">
-          <input type="email" class="form-control mb-3" placeholder="Email">
+          <input type="text" class="form-control mb-2" placeholder="Full Name" required="">
+          <input type="text" class="form-control mb-2" placeholder="Phone Number" required="">
+          <input type="email" class="form-control mb-3" placeholder="Email" required="">
 
           <!-- Delivery Location -->
-          <label class="form-label fw-semibold">Delivery Location</label>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="location" value="dar">
-            <label class="form-check-label">Dar es Salaam</label>
-          </div>
-          <div class="form-check mb-2">
-            <input class="form-check-input" type="radio" name="location" value="outside">
-            <label class="form-check-label">Outside Dar es Salaam</label>
-          </div>
-          <small class="d-block mb-3" id="delivery-msg" style="display:none;">
-         delivery costs will be paid by the customer.
-          </small>
+       <!-- Delivery Location -->
+        <label class="form-label fw-semibold">Delivery Location</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="location" value="dar">
+          <label class="form-check-label">Dar es Salaam</label>
+        </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="radio" name="location" value="outside">
+          <label class="form-check-label">Outside Dar es Salaam</label>
+        </div>
 
-          <!-- Share Location -->
-          <button class="btn btn-secondary w-100 mb-3">
-            <i class="fas fa-map-marker-alt me-2"></i> Share Location
-          </button>
+        <!-- Outside Dar es Salaam inputs -->
+        <div id="outside-fields" style="display:none;">
+          <input type="text" class="form-control mb-2" id="region" placeholder="Region" required="">
+          <input type="text" class="form-control mb-3" id="district" placeholder="District" required="">
+        </div>
+
+        <small class="d-block mb-3" id="delivery-msg" style="display:none;">
+          Delivery costs will be paid by the customer.
+        </small>
+
+        <!-- Share Location (only Dar) -->
+        <button id="share-location-btn" class="btn btn-secondary w-100 mb-3" style="display:none;">
+          <i class="fas fa-map-marker-alt me-2"></i> Share Location
+        </button>
+
 
 
           <!-- Summary -->
@@ -335,7 +340,7 @@
 
           <!-- Checkout -->
           <button class="checkout-btn mt-3">
-            Tsh <span id="checkout-amount">0.00</span> &nbsp; | &nbsp; CHECKOUT →
+            Tsh <span id="checkout-amount">0.00</span> &nbsp; | &nbsp; ORDER →
           </button>
         </div>
       </div>
@@ -517,7 +522,7 @@
 
 <!-- Store Locator Section -->
 <section class="store-locator-section" id="store-locator">
-  <div class="container">
+  <div class="store-container">
     <h2 class="section-title">Our Stores</h2>
     <div class="title-underline">
       <span class="line"></span>
@@ -569,6 +574,91 @@
         <button type="submit" class="apply-btn">Submit Application</button>
       </form>
     </div>
+  </div>
+</section>
+
+<section class="testimonial-section" id="testimonial">
+  <div class="testimonial-container">
+    <h2 class="section-title">Testimonial</h2>
+    <div class="title-underline">
+      <span class="line"></span>
+      <span class="icon">✻</span>
+      <span class="line"></span>
+    </div>
+
+    <div class="testimonial-grid">
+      <!-- Testimonial Card -->
+      <div class="testimonial-card">
+        <p class="testimonial-text">
+          "I have been using Double H products for years and my skin has never felt better. 
+          Their natural ingredients really make a difference!"
+        </p>
+        <div class="testimonial-author">
+          <img src="images/madam.jpg" alt="Jane Doe">
+          <div>
+            <h4>Jane Doe</h4>
+            <p>Customer</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial Card -->
+      <div class="testimonial-card">
+        <p class="testimonial-text">
+          "The customer service at Double H is outstanding. They helped me find the perfect products 
+          for my skin type."
+        </p>
+        <div class="testimonial-author">
+          <img src="images/mr.jpg" alt="John Smith">
+          <div>
+            <h4>John Smith</h4>
+            <p>Customer</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial Card -->
+      <div class="testimonial-card">
+        <p class="testimonial-text">
+          "I love that Double H uses locally sourced ingredients. It feels good to support a brand 
+          that cares about the community."
+        </p>
+        <div class="testimonial-author">
+          <img src="images/madam.jpg" alt="Mary Johnson">
+          <div>
+            <h4>Mary Johnson</h4>
+            <p>Customer</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-testimonials">
+  <div class="video-testimonial">
+    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+      title="YouTube video player" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+      allowfullscreen></iframe>
+  </div>
+
+  <div class="video-testimonial">
+    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+      title="YouTube video player" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+      allowfullscreen></iframe>
+  </div>
+
+  <div class="video-testimonial">
+    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+      title="YouTube video player" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+      allowfullscreen></iframe>
+  </div>
+</div>
+
+
+      </div>
+
+
   </div>
 </section>
 
@@ -732,9 +822,9 @@
       <h3>Company</h3>
       <ul>
         <li><a href="#about">About Us</a></li>
-        <li><a href="#">News</a></li>
-        <li><a href="#">Support</a></li>
-        <li><a href="#">Testimonial</a></li>
+        <li><a href="#news">News & Updates</a></li>
+        <li><a href="#testimonial">Testimonial</a></li>
+        <li><a href="#store-locator">Our Stores</a></li>
       </ul>
     </div>
 
@@ -767,8 +857,6 @@
 </main>
 
 <script>
-
-
 // New products script
 const track = document.querySelector('.carousel-track');
 const prevBtn = document.querySelector('.prev');

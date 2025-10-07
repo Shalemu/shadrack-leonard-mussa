@@ -8,7 +8,7 @@ let cart = [];
 // ==============================
 // Load categories
 // ==============================
-fetch('http://127.0.0.1:8000/api/categories')
+fetch('https://new.doublehcosmetics.co.tz/public/api/categories')
   .then(response => response.json())
   .then(data => {
     data.data.forEach(category => {
@@ -36,7 +36,7 @@ fetch('http://127.0.0.1:8000/api/categories')
 // Load products in category
 // ==============================
 function loadCategoryProducts(categoryId, categoryName) {
-  fetch(`http://127.0.0.1:8000/api/categories/${categoryId}/products`)
+  fetch(`https://new.doublehcosmetics.co.tz/public/api/categories/${categoryId}/products`)
     .then(response => response.json())
     .then(data => {
       const productsGrid = document.getElementById('products-grid');
@@ -239,10 +239,32 @@ async function createBooking() {
     return;
   }
 
+  let address = "";
+  if (selectedLocationType === "dar") {
+    address = "Dar es Salaam";
+    if (!locationLink) {
+      alert("Please share your location!");
+      return;
+    }
+  } else if (selectedLocationType === "outside") {
+    const region = document.getElementById("region").value;
+    const district = document.getElementById("district").value;
+    if (!region || !district) {
+      alert("Please enter region and district!");
+      return;
+    }
+    address = `${region} - ${district}`;
+  } else {
+    alert("Please select delivery location!");
+    return;
+  }
+
   const bookingData = {
     full_name: fullName,
     phone: phone,
     email: email,
+    address: address,
+    location_link: locationLink, // optional field
     cart: cart.map(item => ({
       id: item.id,
       price: item.price,
@@ -251,7 +273,7 @@ async function createBooking() {
   };
 
   try {
-    const response = await fetch("http://127.0.0.1:8000/api/orders", {
+    const response = await fetch("https://new.doublehcosmetics.co.tz/public/api/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(bookingData),
@@ -259,10 +281,10 @@ async function createBooking() {
 
     const data = await response.json();
 
-      if (response.ok) {
+    if (response.ok) {
       // Clear cart
       cart = [];
-      updateCartUI();  // <-- instead of renderCart()
+      updateCartUI(); // Make sure this function updates cart items, totals, and count
 
       // Show success message in cart section
       const successBox = document.getElementById("order-success");
@@ -274,18 +296,54 @@ async function createBooking() {
       `;
       successBox.style.display = "block";
 
+      // Reset cart totals and count
       document.getElementById('cart-subtotal').textContent = "0.00";
       document.getElementById('cart-total').textContent = "0.00";
       document.getElementById('checkout-amount').textContent = "0.00";
       document.querySelector('#cart-count').textContent = "0";
 
-    }
-
- else {
+    } else {
       alert("Booking failed: " + (data.message || JSON.stringify(data.errors)));
     }
+
   } catch (err) {
     console.error(err);
     alert("Something went wrong. Please try again.");
   }
 }
+
+
+let locationLink = "";
+let selectedLocationType = "";
+
+document.querySelectorAll('input[name="location"]').forEach(radio => {
+  radio.addEventListener('change', (e) => {
+    selectedLocationType = e.target.value;
+
+    if (selectedLocationType === 'dar') {
+      document.getElementById('delivery-msg').style.display = 'none';
+      document.getElementById('outside-fields').style.display = 'none';
+      document.getElementById('share-location-btn').style.display = 'block';
+    } else {
+      document.getElementById('delivery-msg').style.display = 'block';
+      document.getElementById('outside-fields').style.display = 'block';
+      document.getElementById('share-location-btn').style.display = 'none';
+      locationLink = ""; // reset
+    }
+  });
+});
+
+document.getElementById('share-location-btn').addEventListener('click', () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+      locationLink = `https://www.google.com/maps?q=${lat},${lng}`;
+      alert("Location captured successfully!");
+    }, () => {
+      alert("Location access denied.");
+    });
+  }
+});
+
+

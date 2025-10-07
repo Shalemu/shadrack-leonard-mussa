@@ -1,12 +1,11 @@
 
-// ========================
+
 // Hero Dynamic Background
-// ========================
 const hero = document.querySelector('.hero-section');
 const images = [
-  "images/banner-1.jpg",
-  "images/banner-3.jpg",
-  "images/banner-4.jpg"
+  "images/banner3.jpg",
+  "images/banner4.jpg",
+  // "images/banner-4.jpg"
 ];
 let currentIndex = 0;
 
@@ -20,9 +19,8 @@ function changeBackground() {
 changeBackground();
 setInterval(changeBackground, 10000);
 
-// ========================
+
 // Tagline Typing Effect
-// ========================
 const tagline = document.getElementById("tagline");
 if (tagline) {
   const text = tagline.textContent;
@@ -40,9 +38,8 @@ if (tagline) {
   typeEffect();
 }
 
-// ========================
+
 // Section Display & Menu
-// ========================
 const menuLinks = document.querySelectorAll('.nav-link');
 const allSections = document.querySelectorAll('section');
 
@@ -53,7 +50,8 @@ const sectionGroups = {
   'store-locator': ['store-locator-section'],
   partner: ['partner-section'],
   contact: ['contact-section'],
-  news: ['news-section']
+  news: ['news-section'],
+  testimonial: ['testimonial-section']
 };
 
 function showSection(sectionClass) {
@@ -130,6 +128,62 @@ window.addEventListener('scroll', () => {
     }
   });
 });
+
+// =============================
+// NAVBAR JS
+// =============================
+
+// Toggle dropdown on click (works for laptop + mobile)
+document.querySelectorAll('.nav-item.dropdown > .nav-link').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault(); // prevent jump
+    const parent = link.parentElement;
+
+    // Close all dropdowns except this one
+    document.querySelectorAll('.nav-item.dropdown').forEach(drop => {
+      if (drop !== parent) drop.classList.remove('open');
+    });
+
+    // Toggle clicked dropdown
+    parent.classList.toggle('open');
+  });
+});
+
+// Close dropdown if clicked outside
+document.addEventListener('click', e => {
+  if (!e.target.closest('.nav-item.dropdown')) {
+    document.querySelectorAll('.nav-item.dropdown').forEach(drop => {
+      drop.classList.remove('open');
+    });
+  }
+});
+
+// =============================
+// MOBILE MENU JS
+// =============================
+
+const menuOpenBtn = document.getElementById("menu-open-button");
+const menuCloseBtn = document.getElementById("menu-close-button");
+const navMenu = document.querySelector(".nav-menu");
+
+// Open menu
+if (menuOpenBtn) {
+  menuOpenBtn.addEventListener("click", () => {
+    navMenu.classList.add("active");
+    menuOpenBtn.style.display = "none";
+    menuCloseBtn.style.display = "block";
+  });
+}
+
+// Close menu
+if (menuCloseBtn) {
+  menuCloseBtn.addEventListener("click", () => {
+    navMenu.classList.remove("active");
+    menuCloseBtn.style.display = "none";
+    menuOpenBtn.style.display = "block";
+  });
+}
+
 
 window.addEventListener('DOMContentLoaded', () => {
   sectionGroups.home.forEach(secClass => {

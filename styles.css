@@ -91,6 +91,13 @@
 
 }
 
+body, h1, h2, h3, p {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+
 section {
   display: none;
   opacity: 0;
@@ -112,29 +119,18 @@ section.active {
 }
 
 
+body { background: #fff; color: #333; line-height: 1.6; }
+ul { list-style: none; margin: 0; padding: 0; }
+a { text-decoration: none; }
 
-/* style of whole site */
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-a {
-  text-decoration: none;
-}
-.logo-image{
-  width: 60px; /* adjust logo size */
-  color: white;
-  filter: brightness(0) invert(1);
-  margin-left: 100px;
-}
+/* Header and Navbar */
 header {
-  background: #831619; /* your primary color */
-  position: fixed;       /* make it fixed */
-  top: 0;                /* stick to the very top */
+  background: #831619;
+  position: fixed;
+  top: 0;
   left: 0;
-  width: 100%;           /* span full width */
-  z-index: 1000;      
+  width: 100%;
+  z-index: 1000;
 }
 
 .navbar {
@@ -143,64 +139,67 @@ header {
   justify-content: space-between;
   padding: 15px 40px;
 }
-.nav-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+
+.nav-logo img {
+  width: 60px;
+  filter: brightness(0) invert(1);
 }
-.logo-text {
-  color: white;
-}
+
 .nav-menu {
   display: flex;
   gap: 20px;
+  text-decoration: none;
 }
+
 .nav-link {
   color: white;
   padding: 8px 12px;
   font-size: 16px;
+  text-decoration: none;
+  border: none;         
 }
+
 .nav-link:hover {
   border: 2px solid white;
-  /* color: #005a9c; */
   border-radius: 6px;
   transition: 0.3s;
+  color: white;
+  text-decoration: none;
 }
 
 .nav-link.active-link {
-  /* border-bottom: 3px solid white; */
- border: 1px solid white;
-  transition: all 0.3s ease;
-    border-radius: 6px;
+  border: 1px solid white; 
+  border-radius: 6px;
+  text-decoration: none;   
+  color: white;
 }
 
-
-/* Dropdown container */
-.dropdown {
-  position: relative;
+/* Dropdown */
+.nav-item.dropdown {
+  position: relative;      
 }
 
-/* Dropdown menu */
+/* Dropdown menu base */
 .dropdown-menu {
   position: absolute;
   top: 100%;
   left: 0;
-  background: #ffffff;
-  min-width: 180px;
+  background: #fff; /* white background */
+  min-width: 220px; /* wider for readability */
   display: flex;
   flex-direction: column;
   padding: 6px 0;
+  margin-top: 8px; /* spacing from navbar */
   opacity: 0;
   visibility: hidden;
-  transform: translateY(8px);
-  transition: all 0.25s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  border-radius: 6px;
+  transform: translateY(10px);
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  border-radius: 8px;
   z-index: 1000;
-  border: 1px solid rgba(0,0,0,0.05);
 }
 
-/* Show menu on hover */
+/* Show dropdown */
 .dropdown:hover .dropdown-menu {
   opacity: 1;
   visibility: visible;
@@ -209,21 +208,31 @@ header {
 
 /* Dropdown items */
 .dropdown-menu li a {
-  padding: 10px 14px;
-  color: #333; /* professional dark gray */
-  font-size: 14px;
+  padding: 12px 18px;
+  color: #333;
+  font-size: 15px;
   font-weight: 500;
   display: block;
-  transition: background 0.2s ease, color 0.2s ease, padding-left 0.2s;
-  border-radius: 4px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
 }
 
 /* Hover effect */
 .dropdown-menu li a:hover {
-  background: #831619;   /* brand color highlight */
+  background: #831619;   
   color: #fff;
-  padding-left: 18px;    /* subtle movement */
+  padding-left: 24px;   
 }
+
+/* Optional: first & last item styling for smoother rounded look */
+.dropdown-menu li:first-child a {
+  margin-top: 6px;
+}
+.dropdown-menu li:last-child a {
+  margin-bottom: 6px;
+}
+
+
 
 
 .navbar :where(#menu-close-button, #menu-open-button){
@@ -234,6 +243,11 @@ header {
     cursor: pointer;
 
 }
+
+.dropdown-menu li a {
+  border: none !important;
+}
+
 
 #menu-open-button,
 #menu-close-button {
@@ -252,14 +266,23 @@ header {
   font-family: 'Open Sans', sans-serif;
 }
 
+.welcome-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
-.section-title {
+.welcome-section .section-title {
   font-family: 'Playfair Display', serif;
   font-size: 2.5rem;
-  font-weight: 600;
   color: #222;
-  margin-bottom: 10px;
 }
+.welcome-section .section-title .double_h {
+  color: #831619;
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+}
+
 
 /* Decorative underline with icon */
 .title-underline {
@@ -271,22 +294,22 @@ header {
 
 /* Tagline (script font) */
 .Tagline {
-  font-family: 'Great Vibes', cursive;
-  font-size: 1.8rem;
+  /* font-family: 'Great Vibes', cursive; */
+  font-size: 2.0rem;
   color: #831619;
   margin-bottom: 25px;
   font-weight: 400;
 }
 
 /* Description */
-.welcome-description {
-  max-width: 750px;
+.welcome-container .welcome-description {
+  max-width: 1000px;
   margin: 0 auto;
   font-family: 'Open Sans', sans-serif;
-  font-size: 1.05rem;
-  line-height: 1.8;
+  font-size: 2.0rem !important;
   color: #666;
 }
+
 
 /* new product styling */
 .new-product-section {
@@ -315,6 +338,19 @@ header {
   padding: 60px 20px;
   background: #fff;
   font-family: 'Open Sans', sans-serif;
+  margin-top: -40px;
+}
+
+.new-product-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.new-product-container .section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: #222;
 }
 /* Carousel */
 .carousel {
@@ -492,6 +528,17 @@ header {
 .product-category {
   padding: 60px 0;
   text-align: center;
+}
+.category-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.category-container .section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: #222;
 }
 
 .product-grid {
@@ -924,15 +971,6 @@ header {
   position: relative;
 }
 
-/* .section-title::after {
-  content: "";
-  width: 60px;
-  height: 3px;
-  background: #f33737;
-  display: block;
-  margin: 10px auto 0;
-} */
-
 .about-description {
   font-size: 1.1rem;
   line-height: 1.8;
@@ -1070,7 +1108,6 @@ header {
 
 /* news styling */
 .news-section{
-
   padding: 100px 20px;
   background: #fdfdfd;
   font-family: 'Poppins', sans-serif;
@@ -1197,6 +1234,125 @@ header {
 .read-more:hover {
   color: #000;
 }
+
+
+/* Testimonial section styling */
+
+.testimonial-section {
+  text-align: center;
+  padding: 80px 20px;
+  background: #fafafa;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+
+
+.testimonial-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.testimonial-section .section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+.testimonial-section .title-underline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+.testimonial-section .title-underline .line {
+  height: 2px;
+  width: 60px;
+  background: #831619;
+  margin: 0 10px;
+}
+.testimonial-section .title-underline .icon {
+  color: #831619;
+  font-size: 18px;
+}
+.testimonial-section .testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: auto;
+}
+.testimonial-section .testimonial-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  position: relative;
+  transition: transform 0.3s ease;
+}
+.testimonial-section .testimonial-card:hover {
+  transform: translateY(-10px);
+}
+.testimonial-section .testimonial-card .quote-icon {
+  font-size: 30px;
+  color: #831619;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+.testimonial-section .testimonial-card p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 15px;
+  line-height: 1.6;
+  margin-top: 30px;
+}
+.testimonial-section .testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.testimonial-section .testimonial-author img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.testimonial-section .testimonial-author .author-info {
+  text-align: left;
+}
+.testimonial-section .testimonial-author .author-info h4 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+.testimonial-section .testimonial-author .author-info span {
+  font-size: 14px;
+  color: #777;
+}
+.testimonial-section .video-testimonials {
+  grid-column: 1 / -1;   /* make it take full width of the grid */
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+.testimonial-section .video-testimonials video {
+  width: 300px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+.testimonial-section .video-testimonials video:hover {
+  transform: translateY(-10px);
+}
+
+
+
+
 
 
 /* footer styling */
@@ -1330,20 +1486,33 @@ header {
   text-align: center;
 }
 
+.store-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.store-locator-section .section-title {
+  font-size: 3.5rem;
+  color: #333;
+  margin-top: 20px;
+}
+
+
+
 .store-locator-section .store-intro {
   margin: 15px 0 40px;
-  font-size: 1.1rem;
+  font-size: 2.1rem;
   color: #444;
 }
 
-.store-list {
+.store-locator-section .store-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
   justify-items: center;
 }
 
-.store-card {
+.store-locator-section .store-card {
   background: #fff;
   border-radius: 12px;
   padding: 20px;
@@ -1359,25 +1528,25 @@ header {
   max-width: 400px;
 }
 
-.store-card:hover {
+.store-locator-section .store-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-.store-card i {
-  font-size: 28px;
+.store-locator-section .store-card i {
+  font-size: 30px;
   color: #e74c3c;
   flex-shrink: 0;
 }
 
-.store-info h4 {
-  font-size: 1rem;
+.store-locator-section .store-info h4 {
+  font-size: 1.6rem;
   margin-bottom: 5px;
   color: #333;
 }
 
-.store-info p {
-  font-size: 0.9rem;
+.store-locator-section .store-info p {
+  font-size: 1.2rem;
   color: #e74c3c;
   font-weight: 600;
 }
@@ -1482,14 +1651,15 @@ header {
   border: none;
   border-radius: 8px;
   background: #302f2f;
-  color: #0e0d0d;
+  color: #fff;
   font-size: 15px;
   transition: all 0.3s ease;
 }
 
 .form-control:focus {
   outline: none;
-  background: #161616;
+  background: #831619;
+  color: #fff;
   box-shadow: #831619;
 }
 
